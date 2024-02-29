@@ -46,9 +46,9 @@ const MassageSchema=new mongoose.Schema({
 });
 
 MassageSchema.pre('deleteOne',{document:true,query:false},async function(next){
-    console.log(`Appointments being removed from hospital ${this._id}`);
+    console.log(`Appointments being removed from Massage shop ${this._id}`);
 
-    await this.model('Appointment').deleteMany({hospital:this._id});
+    await this.model('Appointment').deleteMany({massageshop:this._id});
     
     next();
 });
@@ -59,8 +59,8 @@ MassageSchema.pre('deleteOne',{document:true,query:false},async function(next){
 MassageSchema.virtual('appointments',{
     ref: 'Appointment',
     localField: '_id',
-    foreignField: 'hospital',
+    foreignField: 'massageshop',
     justOne:false
 });
 
-module.exports=mongoose.model('Massage Shop',MassageSchema);
+module.exports=mongoose.model('Massageshop',MassageSchema);
