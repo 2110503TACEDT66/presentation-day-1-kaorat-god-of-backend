@@ -22,3 +22,21 @@ make sure you edit
 ```
 npm run dev
 ```
+
+# Our Database
+(for testing program)
+## users
+```
+{
+    "name" : "admin1",
+    "email" : "admin1zaza@gmail.com",
+    "password": "123456",
+    "role" : "admin"
+}
+
+
+```
+## massageshops
+
+## appointments
+
