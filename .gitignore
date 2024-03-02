@@ -2,7 +2,7 @@
 node_modules/*
 
 // ignore coinfig file
-config/config.env
+// config/config.env
 
 
 package.json
