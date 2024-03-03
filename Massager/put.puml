@@ -1,0 +1,23 @@
+@startuml Manage massager (PUT)
+
+header Backend project 
+footer Page %page% of %lastpage%
+title "Manage massager (PUT)"
+
+participant "Client" as client
+participant "<<javaScript>>\n:server" as server
+participant "<<router>>\n:massager" as routermassager
+participant "<<controllers>>\n:massagers" as controllermassager
+participant "<<model>>\n:massager" as modelmassager
+database "<<MongoDB>>\n:massager" as massagerDatabase
+
+client->server ++:req.delete('/massagers/:id')
+server->routermassager ++:app.use('/massager',massager)
+routermassager -> controllermassager ++:updateMassager()
+controllermassager->modelmassager ++:findByIdAndUpdate(req.params.id, req.body)
+modelmassager ->massagerDatabase ++: massagerSchema
+massagerDatabase --> modelmassager --: massager
+controllermassager <-- modelmassager --: massager
+controllermassager->client --:response
+
+@enduml
