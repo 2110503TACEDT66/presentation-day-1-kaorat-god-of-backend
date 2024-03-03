@@ -1,0 +1,23 @@
+@startuml Manage appointment (GET ALL)
+
+header Backend project 
+footer Page %page% of %lastpage%
+title "Manage appointment (GET ALL)"
+
+participant "Client" as client
+participant "<<javaScript>>\n:server" as server
+participant "<<router>>\n:appointment" as routerAppointment
+participant "<<controllers>>\n:appointments" as controllerappointment
+participant "<<model>>\n:appointment" as modelAppointment
+database "<<MongoDB>>\n:appointment" as AppointmentDatabase
+
+client->server ++:req.get('/appointments')
+server->routerAppointment ++:app.use('/appointment',appointment)
+routerAppointment -> controllerappointment ++:getAppointments()
+controllerappointment->modelAppointment ++:find()
+modelAppointment ->AppointmentDatabase ++: AppointmentSchema
+AppointmentDatabase --> modelAppointment --: appointment
+controllerappointment <-- modelAppointment --: appointment
+controllerappointment->client --:response
+
+@enduml

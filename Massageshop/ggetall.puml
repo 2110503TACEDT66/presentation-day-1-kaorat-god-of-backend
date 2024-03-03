@@ -1,0 +1,23 @@
+@startuml Manage Massageshop (GET ALL)
+
+header Backend project 
+footer Page %page% of %lastpage%
+title "Manage Massageshop (GET ALL)"
+
+participant "Client" as client
+participant "<<javaScript>>\n:server" as server
+participant "<<router>>\n:massageshop" as routerMassage
+participant "<<controllers>>\n:massageshops" as controllerMassageshop
+participant "<<model>>\n:Massageshop" as modelMassage
+database "<<MongoDB>>\n:Massageshop" as MassageDatabase
+
+client->server ++:req.get('/massageshops')
+server->routerMassage ++:app.use('/massageshop',massageshop)
+routerMassage -> controllerMassageshop ++:getMassageshops()
+controllerMassageshop->modelMassage ++:find()
+modelMassage ->MassageDatabase ++: MassageSchema
+MassageDatabase --> modelMassage --: massageshop
+controllerMassageshop <-- modelMassage --: massageshop
+controllerMassageshop->client --:response
+
+@enduml
