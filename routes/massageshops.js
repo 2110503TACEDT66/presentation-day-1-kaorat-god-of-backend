@@ -4,7 +4,10 @@ const { getMassageshops, getMassageshop, createMassageshop, updateMassageshop, d
 const { protect, authorize } = require('../middleware/auth');
 
 const appointmentRouter = require('./appointments');
+const massagerRouter = require('./massagers');
+
 router.use('/:massageshopId/appointments/', appointmentRouter);
+router.use('/:massageshopId/massagers/', massagerRouter);
 
 
 router.route('/')

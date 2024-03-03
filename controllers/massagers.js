@@ -2,7 +2,7 @@ const Massager = require('../models/Massager');
 const Massageshop = require('../models/Massageshop');
 
 //@desc     Get all massagers
-//@route    GET /api/v1/massgers
+//@route    GET /api/v1/massagers
 //@access   Public
 exports.getMassagers = async (req, res, next) => {
     let query;
@@ -54,6 +54,7 @@ try {
 
     res.status(200).json({success: true, count: massageshops.length, pagination,  data: massageshops});
 } catch (err) {
+    console.log(err);
     res.status(400).json({success: false});
 }
 };
@@ -63,12 +64,12 @@ try {
 //@access   Public
 exports.getMassager = async (req, res, next) => {
     try {
-        const massageshop = await Massageshop.findById(req.params.id);
+        const massager = await Massager.findById(req.params.id);
 
-        if (!massageshop) {
+        if (!massager) {
             res.status(400).json({success: false});
         } else {
-            res.status(200).json({success: true, data: massageshop});
+            res.status(200).json({success: true, data: massager});
         }
 
     } catch (err) {
@@ -79,7 +80,7 @@ exports.getMassager = async (req, res, next) => {
 //@desc     Add massager
 //@route    POST /api/v1/massageshops/:massageshopId/massagers
 //@access   Private
-exports.addMassager = async (req, res, next) => {
+exports.createMassager = async (req, res, next) => {
     try {
         req.body.massageshop = req.params.massageshopId;
 

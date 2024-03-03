@@ -1,10 +1,9 @@
 const express = require('express');
-const { getMassager, getMassagers, createMassager, updateMassager, deleteMassager } = require('../controllers/massages');
+const { getMassager, getMassagers, createMassager, updateMassager, deleteMassager } = require('../controllers/massagers');
 
 const { protect, authorize } = require('../middleware/auth'); 
 
 const router = express.Router({mergeParams: true});
-const {protect, authorize} = require('../middleware/auth');
 
 router.route('/')
     .get(getMassagers)

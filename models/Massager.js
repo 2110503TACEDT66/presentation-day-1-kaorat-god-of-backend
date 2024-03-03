@@ -20,7 +20,7 @@ const MassagerSchema = new mongoose.Schema({
         require: true
     },
     rating: {
-        type: Int8Array,
+        type: String,
         required: [true,'Please add rating']
     }
 });

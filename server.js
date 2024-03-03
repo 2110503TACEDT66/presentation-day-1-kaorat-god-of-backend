@@ -12,6 +12,7 @@ app.use(cookieParser());
 
 app.use('/api/v1/massageshops', require('./routes/massageshops'));
 app.use('/api/v1/auth', require('./routes/auth'));
+app.use('/api/v1/massagers', require('./routes/massagers'));
 app.use('/api/v1/appointments', require('./routes/appointments'));
 
 
