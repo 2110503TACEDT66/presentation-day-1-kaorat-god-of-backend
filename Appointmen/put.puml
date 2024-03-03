@@ -13,7 +13,7 @@ database "<<MongoDB>>\n:appointment" as appointmentDatabase
 
 client->server ++:req.delete('/appointments/:id')
 server->routerappointment ++:app.use('/appointment',appointment)
-routerappointment -> controllerappointment ++:updateAppointment(    )
+routerappointment -> controllerappointment ++:updateAppointment()
 controllerappointment->modelappointment ++:findByIdAndUpdate(req.params.id, req.body)
 modelappointment ->appointmentDatabase ++: appointmentSchema
 appointmentDatabase --> modelappointment --: appointment

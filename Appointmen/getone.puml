@@ -1,23 +1,23 @@
-@startuml Manage Appointment (GET ONE)
+@startuml Manage appointment (GET ONE)
 
 header Backend project 
 footer Page %page% of %lastpage%
-title "Manage Appointment (GET ONE)"
+title "Manage appointment (GET ONE)"
 
 participant "Client" as client
 participant "<<javaScript>>\n:server" as server
 participant "<<router>>\n:appointment" as routerAppointmnent
 participant "<<controllers>>\n:appointment" as controllerappointment
-participant "<<model>>\n:Appointment" as modelAppointment
-database "<<MongoDB>>\n:Appointment" as AppointmentDatabase
+participant "<<model>>\n:appointment" as modelappointment
+database "<<MongoDB>>\n:appointment" as appointmentDatabase
 
 client->server ++:req.get('/appointment/:id')
 server->routerAppointmnent ++:app.use('/appointment',appointment)
 routerAppointmnent -> controllerappointment ++:getAppointment()
-controllerappointment->modelAppointment ++:findById(req.params.id)
-modelAppointment ->AppointmentDatabase ++: AppointmentSchema
-AppointmentDatabase --> modelAppointment --: appointment
-controllerappointment <-- modelAppointment --: appointment
+controllerappointment->modelappointment ++:findById(req.params.id)
+modelappointment ->appointmentDatabase ++: appointmentSchema
+appointmentDatabase --> modelappointment --: appointment
+controllerappointment <-- modelappointment --: appointment
 controllerappointment->client --:response
 
 @enduml

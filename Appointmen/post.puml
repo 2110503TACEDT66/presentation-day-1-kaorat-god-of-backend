@@ -15,7 +15,7 @@ client->server ++:req.delete('/appointments')
 server->routerappointment ++:app.use('/appointment',appointment)
 routerappointment -> controllerappointment ++:addAppointment()
 controllerappointment->modelappointment ++:create(req.body)
-modelappointment ->appointmentDatabase ++: AppointmentSchema
+modelappointment ->appointmentDatabase ++: appointmentSchema
 appointmentDatabase --> modelappointment --: appointment
 controllerappointment <-- modelappointment --: appointment
 controllerappointment->client --:response
