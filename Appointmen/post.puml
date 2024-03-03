@@ -1,0 +1,23 @@
+@startuml Manage appointment (POST)
+
+header Backend project 
+footer Page %page% of %lastpage%
+title "Manage appointment (POST)"
+
+participant "Client" as client
+participant "<<javaScript>>\n:server" as server
+participant "<<router>>\n:appointment" as routerappointment
+participant "<<controllers>>\n:appointments" as controllerappointment
+participant "<<model>>\n:appointment" as modelappointment
+database "<<MongoDB>>\n:appointment" as appointmentDatabase 
+
+client->server ++:req.delete('/appointments')
+server->routerappointment ++:app.use('/appointment',appointment)
+routerappointment -> controllerappointment ++:addAppointment()
+controllerappointment->modelappointment ++:create(req.body)
+modelappointment ->appointmentDatabase ++: appointmentSchema
+appointmentDatabase --> modelappointment --: appointment
+controllerappointment <-- modelappointment --: appointment
+controllerappointment->client --:response
+
+@enduml
