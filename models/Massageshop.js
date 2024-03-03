@@ -63,4 +63,11 @@ MassageSchema.virtual('appointments',{
     justOne:false
 });
 
+MassageSchema.virtual('massagers',{
+    ref: 'Massager',
+    localField: '_id',
+    foreignField: 'massager',
+    justOne:false
+});
+
 module.exports=mongoose.model('Massageshop',MassageSchema);
