@@ -1,0 +1,113 @@
+@startuml
+left to right direction
+class "<<Application>>\nMassageService" as service{
+
+}
+
+class "<<Reprensentation>>\nMassageshop" as massageshop{
+    -name
+    -address
+    -district
+    -province
+    -postalcode
+    -tel
+    -region
+    -opentime
+    -closetime
+    -price
+}
+
+class "<<Representation>>\nAppointment" as appointment{
+    -appDate
+    -user
+    -massageshop
+    -createdAt
+}
+
+class "<<Representaion>>\nMassager" as Massager {
+    -name
+    -tel
+    -age
+    -massageshop
+    -rating
+}
+class "<<Representaion>>\nUser" as User {
+    -name
+    -tel
+    -email
+    -role
+    -password
+    -createdAt
+}
+
+class "<<Resoure>>\nMassageshop" as ResourceMassageshops{
+    <<GET>> +getMassageshops():Massageshop
+    <<POST>> +createMassageshop:Massageshop
+}
+
+class "<<Resource>>\nMassageshop" as ResourceMassageshop {
+    <<GET>> +getMassageshop():Massageshop
+    <<PUT>> +updateMassageshop():Massageshop
+    <<DELETE>> +deleteMassageshop():void
+}
+
+service ..> ResourceMassageshops:"/api/v1/massageshops\n<<Path>>"
+ResourceMassageshops ..> ResourceMassageshop:"{MassageshopID}\n<<Path>>"
+ResourceMassageshop ..> massageshop:"<<use>>"
+
+class "<<Resource>>\nAppointment" as ResourceAppointments{
+    <<GET>> +getAppoinntments():Appointment
+    <<POST>> +addAppointment():Appointment
+}
+
+class "<<Resource>>\nAppointment" as ResourceAppointment {
+    <<GET>> +getAppointment():Appointment
+    <<PUT>> +updateAppointment():Appointment
+    <<DELETE>> +deleteAppointment():void
+}
+
+service ..> ResourceAppointments:"/api/v1/appointments\n<<Path>>"
+ResourceAppointments ..> ResourceAppointment:"/{AppointmentID}\n<<Path>>"
+ResourceAppointment ..> appointment:"<<use>>"
+
+class "<<Resource>>\nMassager" as ResourceMassagers {
+    <<GET>> +getMassagers():Massager
+    <<POST>> +createMassager():Massager
+}
+
+class "<<Resource>>\nMassager" as ResourceMassager {
+    <<GET>> +getMassager():Massager
+    <<PUT>> +updateMassager():Massager
+    <<DELETE>> +deleteMassager():deleteMassager
+}
+
+service ..> ResourceMassagers:"/api/v1/massagers\n<<Path>>"
+ResourceMassagers ..> ResourceMassager:"{MassagerID}\n<<Path>>"
+ResourceMassager ..> Massager:"<<use>>"
+
+class "<<Resource>>\nGetMe" as getme {
+    <<GET>> +getMe:User
+}
+
+class "<<Resource>>\nLogin" as login {
+    <<POST>> +login():TOKEN
+}
+
+class "<<Resource>>\nRegister" as register {
+    <<POST>> +register():TOKEN
+}
+
+class "<<Resource>>\nlogout" as logout {
+    <<GET>> +logout():void
+}
+
+service ..> register:"/api/v1/auth/register\n<<Path>>"
+service ..> login:"/api/v1/auth/login\n<<Path>>"
+service ..> getme:"/api/v1/auth/me\n<<Path>>"
+service ..> logout:"/api/v1/auth/logout\n<<Path>>"
+register ..> User:"<<use>>"
+login ..> User:"<<use>>"
+getme ..> User:"<<use>>"
+
+
+@enduml

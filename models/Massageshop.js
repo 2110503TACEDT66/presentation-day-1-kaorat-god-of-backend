@@ -40,6 +40,10 @@ const MassageSchema=new mongoose.Schema({
         type: String,
         required: [true, 'Please add a closing time'],
     },
+    price: {
+        type:String,
+        required:[true, 'Please add your price']
+    }
 },{
     toJSON: {virtuals:true},
     toObject: {virtuals:true}
