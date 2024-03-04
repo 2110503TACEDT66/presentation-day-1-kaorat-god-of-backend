@@ -2,7 +2,7 @@
 left to right direction
 actor "User" as user
 rectangle "Massage System" as MassageSstem {
-    usecase "Register" as register
+    usecase "Register/login" as register
     usecase "View\nMassageShop" as viewMassageShop
     usecase "View\nMassager" as viewMassages
     usecase "View\nAppointment" as viewAppointment

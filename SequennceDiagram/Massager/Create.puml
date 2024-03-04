@@ -1,20 +1,23 @@
-@startuml Manage massager (PUT)
+@startuml Manage massager (POST)
 
 header Backend project 
 footer Page %page% of %lastpage%
-title "Manage massager (PUT)"
+title "Manage massager (POST)"
 
 participant "Client" as client
 participant "<<javaScript>>\n:server" as server
 participant "<<router>>\n:massager" as routermassager
+participant "<<middleware>>\n:auth" as auth
 participant "<<controllers>>\n:massagers" as controllermassager
 participant "<<model>>\n:massager" as modelmassager
-database "<<MongoDB>>\n:massager" as massagerDatabase
+database "<<MongoDB>>\n:massager" as massagerDatabase 
 
-client->server ++:req.delete('/massagers/:id')
+client->server ++:req.delete('/massagers')
 server->routermassager ++:app.use('/massager',massager)
-routermassager -> controllermassager ++:updateMassager()
-controllermassager->modelmassager ++:findByIdAndUpdate(req.params.id, req.body)
+routermassager -> auth ++:protect()
+routermassager -> auth :authorize('admin')
+auth -> controllermassager ++:addMassager()
+controllermassager->modelmassager ++:create(req.body)
 modelmassager ->massagerDatabase ++: massagerSchema
 massagerDatabase --> modelmassager --: massager
 controllermassager <-- modelmassager --: massager

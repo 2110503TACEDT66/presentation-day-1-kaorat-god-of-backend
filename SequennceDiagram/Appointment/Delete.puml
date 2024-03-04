@@ -1,23 +1,28 @@
-@startuml Manage appointment (PUT)
+@startuml Manage appointment (DELETE)
 
 header Backend project 
 footer Page %page% of %lastpage%
-title "Manage appointment (PUT)"
+title "Manage appointment (DELETE)"
 
 participant "Client" as client
 participant "<<javaScript>>\n:server" as server
 participant "<<router>>\n:appointment" as routerappointment
+participant "<<middleware>>\n:auth" as auth
 participant "<<controllers>>\n:appointments" as controllerappointment
 participant "<<model>>\n:appointment" as modelappointment
 database "<<MongoDB>>\n:appointment" as appointmentDatabase
 
 client->server ++:req.delete('/appointments/:id')
 server->routerappointment ++:app.use('/appointment',appointment)
-routerappointment -> controllerappointment ++:updateAppointment()
-controllerappointment->modelappointment ++:findByIdAndUpdate(req.params.id, req.body)
-modelappointment ->appointmentDatabase ++: appointmentSchema
+routerappointment -> auth ++:protect()
+routerappointment -> auth :authorize('admin', 'user')
+auth --> controllerappointment ++:deleteAppointment()
+controllerappointment->modelappointment ++:findById(req.params.id)
+modelappointment ->appointmentDatabase ++: AppointmentSchema
 appointmentDatabase --> modelappointment --: appointment
 controllerappointment <-- modelappointment --: appointment
+controllerappointment --> modelappointment ++:deleteOne()
+modelappointment --> appointmentDatabase ++:AppointmentSchema
 controllerappointment->client --:response
 
 @enduml

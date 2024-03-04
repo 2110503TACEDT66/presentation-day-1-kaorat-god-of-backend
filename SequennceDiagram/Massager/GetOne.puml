@@ -15,7 +15,7 @@ client->server ++:req.get('/massager/:id')
 server->routerAppointmnent ++:app.use('/massager',massager)
 routerAppointmnent -> controllermassager ++:getMassager()
 controllermassager->modelmassager ++:findById(req.params.id)
-modelmassager ->massagerDatabase ++: massagerSchema
+modelmassager ->massagerDatabase ++: MassagerSchema
 massagerDatabase --> modelmassager --: massager
 controllermassager <-- modelmassager --: massager
 controllermassager->client --:response

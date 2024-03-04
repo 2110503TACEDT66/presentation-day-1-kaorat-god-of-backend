@@ -7,17 +7,22 @@ title "Manage massager (DELETE)"
 participant "Client" as client
 participant "<<javaScript>>\n:server" as server
 participant "<<router>>\n:massager" as routermassager
+participant "<<middleware>>\n:auth" as auth
 participant "<<controllers>>\n:massagers" as controllermassager
 participant "<<model>>\n:massager" as modelmassager
 database "<<MongoDB>>\n:massager" as massagerDatabase
 
 client->server ++:req.delete('/massagers/:id')
 server->routermassager ++:app.use('/massager',massager)
-routermassager -> controllermassager ++:deleteM assager()
-controllermassager->modelmassager ++:findByIdandDelete(req.params.id)
-modelmassager ->massagerDatabase ++: massagerSchema
+routermassager -> auth ++:protect()
+routermassager -> auth :authorize('admin')
+auth -> controllermassager ++:deleteMassager()
+controllermassager->modelmassager ++:findById(req.params.id)
+modelmassager ->massagerDatabase ++: MassagerSchema
 massagerDatabase --> modelmassager --: massager
 controllermassager <-- modelmassager --: massager
+controllermassager --> modelmassager ++:deleteOne()
+modelmassager ->massagerDatabase ++: MassagerSchema
 controllermassager->client --:response
 
 @enduml

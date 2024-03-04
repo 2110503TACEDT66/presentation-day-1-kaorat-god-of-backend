@@ -1,21 +1,21 @@
-@startuml Manage massager (POST)
+@startuml Manage massager (GET ALL)
 
 header Backend project 
 footer Page %page% of %lastpage%
-title "Manage massager (POST)"
+title "Manage massager (GET ALL)"
 
 participant "Client" as client
 participant "<<javaScript>>\n:server" as server
 participant "<<router>>\n:massager" as routermassager
 participant "<<controllers>>\n:massagers" as controllermassager
 participant "<<model>>\n:massager" as modelmassager
-database "<<MongoDB>>\n:massager" as massagerDatabase 
+database "<<MongoDB>>\n:massager" as massagerDatabase
 
-client->server ++:req.delete('/massagers')
+client->server ++:req.get('/massagers')
 server->routermassager ++:app.use('/massager',massager)
-routermassager -> controllermassager ++:addMassager()
-controllermassager->modelmassager ++:create(req.body)
-modelmassager ->massagerDatabase ++: massagerSchema
+routermassager -> controllermassager ++:getMassagers()
+controllermassager->modelmassager ++:find()
+modelmassager ->massagerDatabase ++: MassagerSchema
 massagerDatabase --> modelmassager --: massager
 controllermassager <-- modelmassager --: massager
 controllermassager->client --:response

@@ -7,15 +7,17 @@ title "Manage appointment (GET ONE)"
 participant "Client" as client
 participant "<<javaScript>>\n:server" as server
 participant "<<router>>\n:appointment" as routerAppointmnent
+participant "<<middleware>>\nauth" as auth
 participant "<<controllers>>\n:appointment" as controllerappointment
 participant "<<model>>\n:appointment" as modelappointment
 database "<<MongoDB>>\n:appointment" as appointmentDatabase
 
 client->server ++:req.get('/appointment/:id')
 server->routerAppointmnent ++:app.use('/appointment',appointment)
-routerAppointmnent -> controllerappointment ++:getAppointment()
+routerAppointmnent --> auth ++:protect()
+auth -> controllerappointment ++:getAppointment()
 controllerappointment->modelappointment ++:findById(req.params.id)
-modelappointment ->appointmentDatabase ++: appointmentSchema
+modelappointment ->appointmentDatabase ++: AppointmentSchema
 appointmentDatabase --> modelappointment --: appointment
 controllerappointment <-- modelappointment --: appointment
 controllerappointment->client --:response
