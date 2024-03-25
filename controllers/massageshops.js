@@ -86,7 +86,7 @@ exports.createMassageshop = async (req, res, next) => {
         console.log(err);
     return res
       .status(500)
-      .json({ success: false, message: "Cannot create Massageshop" });
+      .json({ success: false, message: err });
     }
 };
 
