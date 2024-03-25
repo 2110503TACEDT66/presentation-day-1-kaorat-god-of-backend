@@ -4,7 +4,4 @@ node_modules/*
 // ignore coinfig file
 // config/config.env
 
-
-package.json
 out/*
-package-lock.json
