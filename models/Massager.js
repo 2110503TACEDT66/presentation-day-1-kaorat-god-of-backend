@@ -22,6 +22,10 @@ const MassagerSchema = new mongoose.Schema({
     rating: {
         type: String,
         required: [true,'Please add rating']
+    },
+    img: {
+        type: String,
+        required: [true,'Please add image']
     }
 });
 
