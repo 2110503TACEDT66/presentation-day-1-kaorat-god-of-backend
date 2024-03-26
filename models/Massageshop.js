@@ -36,7 +36,7 @@ const MassageSchema=new mongoose.Schema({
         type: String,
         required: [true, 'Please add an opening time'],
       },
-      closetime: {
+    closetime: {
         type: String,
         required: [true, 'Please add a closing time'],
     },
