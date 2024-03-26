@@ -2,6 +2,7 @@ const express = require('express');
 const dotenv = require('dotenv');
 const cookieParser = require('cookie-parser');
 const connectDB = require('./config/db');
+const cors = require('cors')
 dotenv.config({ path: './config/config.env' });
 
 connectDB();
@@ -9,7 +10,11 @@ const app = express();
 
 app.use(express.json());
 app.use(cookieParser());
-
+const corsOptions = {
+    origin: 'http://localhost:3000', // Allow requests from this origin
+    optionsSuccessStatus: 200 // some legacy browsers (IE11, various SmartTVs) choke on 204
+};
+app.use(cors(corsOptions));
 app.use('/api/v1/massageshops', require('./routes/massageshops'));
 app.use('/api/v1/auth', require('./routes/auth'));
 app.use('/api/v1/massagers', require('./routes/massagers'));
