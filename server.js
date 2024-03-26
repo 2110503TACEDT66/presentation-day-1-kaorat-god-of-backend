@@ -11,7 +11,7 @@ const app = express();
 app.use(express.json());
 app.use(cookieParser());
 const corsOptions = {
-    origin: 'http://localhost:3000', // Allow requests from this origin
+    origin: 'https://swdevprac2-project-kaorat-god-of-backend.vercel.app/', // Allow requests from this origin
     optionsSuccessStatus: 200 // some legacy browsers (IE11, various SmartTVs) choke on 204
 };
 app.use(cors(corsOptions));
